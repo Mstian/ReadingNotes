@@ -82,6 +82,34 @@
    >闭包参考：https://www.jianshu.com/p/af0f1a11679a
 
    
+#### 单例模式
+定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+
+```
+let createInstance = function(val) {
+    return val;
+}
+
+let ProxySingleton = (function() {
+    let instance = null;
+    return function(val) {
+        if (!instance) {
+          instance = createInstance(val);
+        }
+        return instance;
+    }
+})();
+
+// 测试
+let a = ProxySingleton('a');
+let b = ProxySingleton('b');
+console.log(a, b); // a a
+console.log(a === b); // true
+
+```
+单例模式实现有很多种，尤其是在JavaScript中，一个全局变量就可以实现单例模式，但是为了私有化变量，减少全局变量，可以使用闭包加代理的方式，核心就是将业务逻辑和单例逻辑分开实现，将单例变量存在闭包中实现隔离。
+
+
 
    
 
