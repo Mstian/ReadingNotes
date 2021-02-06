@@ -67,4 +67,33 @@
    4. 目录分析和包：require()分析扩展名之后，可能没有查找到对应文件，可能会得到一个目录，此时Node会将目录当做一个包来处理。分析过程，首先Node会在当前目录下查找package.json，取出main属性指定的文件名进行定位。如果文件名缺少扩展名，将进入扩展名分析步骤。如果main指定的文件名错误，或者就没有package.json文件，Node会将index当做默认的文件名，然后依次查找index.js、index.json、index.node。如果没有定位成功任何文件，则自定义模块进入下一个模块路径进行查找。（模块路径是Node在定位文件模块的具体文件时制定的查找策略，是一个由路径组成的数组）
 
    模块编译：
-
+   
+   对于不同的文件扩展名，其载入的方法也不同
+   
+   + .js文件：通过fs模块同步读取文件后编译执行
+   + .node文件：C/C++编写的扩展文件，通过dlopen()方法加载最后编译生成的文件。
+   + .json文件：通过fs模块同步读取文件后，用JSON.parse()解析返回结果。
+   + 其他扩展名文件：它们都被当做.js文件载入
+   
+   每一个编译成功的模块都会将其文件路径作为索引缓存在Module._cache对象上，以提高二次引入的性能。
+   
+   JavaScript模块的编译：
+   
+   require、exports、module这3个变量在每个模块中都有，但是在模块文件中并未定义，那么从何而来？还有`__dirname`、`__filename`如果把直接定义模块的过程放在浏览器端，会存在污染全局变量的情况。
+   
+   事实上，在编译的过程中，Node对获取的JavaScript文件内容进行了`头尾包装`在头部添加了`（function(exports, require, module, __filename, __dirname){\n） `，在尾部添加了`\n`.
+   
+   正常的JavaScript文件会被包装成如下的样子：
+   
+   ```javascript
+   (function(exports, require, module, __filename, __dirname) {
+   	var Math = require('math');
+   	exports.area = function(radius) {
+   		return Math.PI * radius * radius;
+   	}
+   })
+   ```
+   
+   这样每个模块文件之间都进行了作用域隔离。包装之后的代码会通过vm原生模块runInThisContext()方法执行（类似eval，只是具有明确上下文，不污染全局），返回一个具体的function对象。
+   
+   这就是这些变量并没有定义在每个模块文件中却存在的原因。在执行之后，模块的exports属性被返回给了调用方。exports属性上的任何方法和属性都可以被外部调用，但是模块中的其余变量或属性则不可直接调用。
