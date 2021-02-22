@@ -44,7 +44,7 @@ var obj = {
 
 // console.log(window, 'window');
 
-// obj.b.apply(window);
+obj.b.apply(window);
 
 console.log(a);
 
