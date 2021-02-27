@@ -195,9 +195,41 @@ function handleCustomClass(type) {
 
 在JavaScript语言的策略模式中，策略类往往被函数所替代，这时策略模式就成为一种“隐形”的模式。
 
-   
+#### 代理模式
 
-   
+代理模式是为对象提供一个代用品或占位符，以便控制对它的访问。
+
+代理的关键是，当客户不方便直接访问一个对象或者不满足需要的时候，提供一个替身对象来控制对这个对象的访问，客户实际上访问的是替身对象。替身对象对请求作出一些处理之后，再把请求转交给本体对象。
+
+比如图片预加载的案例：
+```
+var myImage = (function() {
+    var imgNode = document.createElement('img');
+    document.body.appendChild(imgNode);
+    return {
+        setSrc: function(src) {
+            imgNode.src = src;
+        }
+    }
+})();
+
+var proxyImage = (function() {
+    var img = new Image;
+    img.onload = function() {
+        myImage.setSrc(this.src);
+    };
+    return {
+        setSrc: function(src) {
+            myImage.setSrc('file:// /c:img.jpg');  // loading图
+            img.src = src;
+        }
+    }
+})();
+
+proxyImage.setSrc('http://image.com'); // 实际网络图片
+```
+代理模式的意义在于减少本体对象承担的责任，为了更好的适应单一职责原则。
+
 
 
 
