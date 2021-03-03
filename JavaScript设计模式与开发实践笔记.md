@@ -230,7 +230,48 @@ proxyImage.setSrc('http://image.com'); // 实际网络图片
 ```
 代理模式的意义在于减少本体对象承担的责任，为了更好的适应单一职责原则。
 
+#### 发布订阅模式
+发布订阅模式又叫观察者模式（书中这么说的，但是这块是有其他异议的），它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。
 
+```
+var event = {
+    clientList: {},
+    listen: function(key, fn) { // 订阅
+        if(!this.clientList[key]){
+            this.clientList[key] = [];
+        }
+        this.clientList[key].push(fn);
+    },
+    trriger: function() { // 发布
+        let key = Array.prototype.shift(arguments);
+        let fns = this.clientList[key];
+        if(!fns || fns.length === 0) {
+            return false;
+        }
+        for(let i = 0; i < fns.length; i++) {
+            fns[i].apply(this, arguments);
+        }        
+    },
+    remove: function(key, fn) {
+        let fns = this.clientList[key];
+        if(!fns || fns.length === 0){
+            return false;
+        }
+        if(!fn) {
+            fns.length = 0;
+        } else {
+            for(let i = 0; i<fns.length; i++) {
+                if(fns[i] === fn) {
+                    fns.splice(i, 1);
+                }
+            }
+        }
+    }
+}
+```
+发布订阅模式订阅者必须先订阅一个消息，随后才能接收到发布者发布的消息。如果顺序反过来，发布者先发布一条消息，而在此之前并没有对象来订阅它，这条消息将石沉大海。
+
+发布订阅模式的优点：时间上解耦，对象之前的解耦。缺点：消耗时间，内存，对象之间关系被深埋，导致程序难以跟踪维护。
 
 
 
