@@ -273,6 +273,54 @@ var event = {
 
 发布订阅模式的优点：时间上解耦，对象之前的解耦。缺点：消耗时间，内存，对象之间关系被深埋，导致程序难以跟踪维护。
 
+#### 装饰者模式
+装饰者模式可以动态地给某个对象添加一些额外的职责，而不会影响从这个类中派生的其他对象。
+这种给对象动态的增加职责的方式称为装饰者模式。
+跟继承相比，装饰者是一种更灵活轻便的做法，这是一种“即用即付”的方式。
+
+```
+var plane = {
+    fire: function(){
+        console.log('发射普通子弹');
+    }
+}
+
+var missileDecotor = function() {
+    console.log('发射导弹');
+}
+
+var atomDecotor = function() {
+    console.log("发射原子弹");
+}
+
+var fire1 = plane.fire;
+
+plane.fire = funciton() {
+    fire1();
+    missileDecotor();
+}
+
+var fire2 = plane.fire();
+
+plane.fire = function() {
+    fire2();
+    atomDecotor();
+}
+
+plane.fire();
+
+```
+用AOP装饰函数
+```
+Function.prototype.before = function(beforeFn) {
+    var self = this;
+    return function() {
+        beforeFn.apply(this, arguments);
+        return self.apply(this, argumrnts);
+    }
+}
+```
+
 
 
 
