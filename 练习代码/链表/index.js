@@ -107,11 +107,3 @@ class LinkedList{
 let list = new LinkedList();
 list.push(1);
 list.push(2);
-
-// console.log(list);
-// list.removeAt(1);
-// list.insert(0, 1)
-// console.log(list);
-
-// console.log(list.indexOf(1));
-console.log(list.toString());

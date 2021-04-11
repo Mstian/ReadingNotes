@@ -181,8 +181,155 @@ class Deque{
 1. 击鼓传花问题。
 2. 回文检查器。
 
+##### 链表（单向链表）
 
+链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。
 
+相比于传统的数组，链表的一个好处在于，添加或移除元素的时候不需要移动其他元素。在数组中，可以直接访问任何位置的任何元素，而想要访问链表中间的一个元素，则需要从起点（表头）开始迭代链表，直到找到所需的元素。
+
+LinkedList类的一些方法
+`push(element)`:尾部添加新元素
+`insert(element, position)`:特定位置添加新元素
+`getElementAt(index)`:返回链表中特定位置的元素
+`remove(element)`:从链表中移除元素
+`indexOf(element)`:返回元素在链表中的索引
+`removeAt(position)`:从链表的特定位置移除一个元素
+`isEmpty()`:判断链表是否为空
+`size()`:返回链表所含元素个数
+`toString()`:返回表示链表的字符串
+
+```
+// utils.js
+function defaultEquals(a, b) {
+    return a === b;
+}
+exports.defaultEquals = defaultEquals;
+```
+
+```
+// linked-list-model.js
+class Node{
+    constructor(element) {
+        this.element = element;
+        this.next = undefined;
+    }
+}
+
+exports.Node = Node;
+```
+```
+// index.js
+const {defaultEquals} = require("./utils");
+const {Node} = require("./models/linked-list-models");
+
+class LinkedList{
+    constructor(equalsFn = defaultEquals) {
+        this.count = 0;
+        this.head = undefined;
+        this.equalsFn = equalsFn;
+    }
+    push(element){
+        const node = new Node(element);
+        let current;
+        if(this.head == null) {
+            this.head = node;
+        } else {
+            current = this.head;
+            while(current.next != null) {
+                current = current.next;
+            }
+            current.next = node;
+        }
+        this.count ++;
+    }
+    removeAt(index) {
+        // 检查越界
+        if(index < 0 || index > this.count) {
+            return undefined;
+        }
+        let current = this.head;
+        if(index === 0) {
+            this.head = current.next;
+        } else {
+            let previous = this.getElementAt(index - 1);
+            current = previous.next;
+            previous.next = current.next;
+        }
+        this.count --;
+        return current.element;
+    }
+    getElementAt(index) {
+        // 检查越界
+        if(index < 0 || index > this.count) {
+            return undefined;
+        }
+        let current = this.head;
+        for (let i = 0; i < index; i++ ) {
+            current = current.next;
+        }
+        return current;
+    }
+    insert(element, index) {
+        // 检查越界
+        if(index < 0 || index > this.count) {
+            return undefined;
+        }
+        const node = new Node(element);
+        if(index === 0) {
+            const current = this.head;
+            node.next = current;
+            this.head = node;
+        } else {
+            let previous = this.getElementAt(index - 1);
+            let current = previous.next;
+            previous.next = node;
+            node.next = current;
+        }
+        this.count ++;
+        return true;
+    }
+    indexOf(element) {
+        let current = this.head;
+        for (let i = 0; i < this.count - 1; i++ ) {
+            if(this.equalsFn(element, current.element)) {
+                return i;
+            }
+            current = current.next;
+        }
+        return -1;
+    }
+    remove(element){
+        const index = this.indexOf(element);
+        return this.removeAt(index);
+    }
+    size(){
+        return this.count;
+    }
+    isEmpty() {
+        return this.size() === 0
+    }
+    getHead() {
+        return this.head;
+    }
+    toString() {
+        if(this.head == null) {
+            return "";
+        }
+        let objString = `${this.head.element}`;
+        let current = this.head.next;
+        for(let i = 0; i < this.size() - 1; i++) {
+            objString = `${objString},${current.element}`;
+            current = current.next;
+        }
+        return objString;
+    }
+}
+
+let list = new LinkedList();
+list.push(1);
+list.push(2);
+```
+##### 双向链表
 
 
 
