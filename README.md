@@ -6,7 +6,7 @@
 1. [Review代码记录](https://github.com/Mstian/ReadingNotes/blob/master/Review%E4%BB%A3%E7%A0%81%E8%AE%B0%E5%BD%95.md)
 2. [深入浅出Nodejs](https://github.com/Mstian/ReadingNotes/blob/master/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANodejs%E7%AC%94%E8%AE%B0.md)
 3. [JavaScript设计模式与开发实践](https://github.com/Mstian/ReadingNotes/blob/master/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%8E%E5%BC%80%E5%8F%91%E5%AE%9E%E8%B7%B5%E7%AC%94%E8%AE%B0.md)
-4. JavaScript数据结构与算法
+4. [JavaScript数据结构与算法](https://github.com/Mstian/ReadingNotes/blob/master/%E5%AD%A6%E4%B9%A0JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95.md)
 
 ### 面试复盘
 + [2021-0207UCloud一面](https://github.com/Mstian/ReadingNotes/blob/master/%E9%9D%A2%E8%AF%95%E5%A4%8D%E7%9B%98/2021-0207UCloud%E4%B8%80%E9%9D%A2.md)
