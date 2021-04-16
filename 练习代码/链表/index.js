@@ -106,7 +106,7 @@ class LinkedList{
 // let list = new LinkedList();
 // list.push(1);
 // list.push(2);
-
+// console.log(list.size());
 
 class DoublyLinkedList extends LinkedList{
     constructor(equalsFn = defaultEquals){
@@ -121,7 +121,6 @@ class DoublyLinkedList extends LinkedList{
         let current = this.head;
         if(index === 0) {
             if(this.head == undefined) {
-                console.log('jj');
                 this.head = node;
                 this.tail = node;
             } else {
@@ -179,4 +178,61 @@ class DoublyLinkedList extends LinkedList{
 // doublyList.removeAt(1);
 // console.log(doublyList);
 
+class CircularLinkedList extends LinkedList{
+    constructor(equalsFn = defaultEquals) {
+        super(equalsFn);
+    }
+    insert(element, index){
+        if (index < 0 || index > this.count) {
+            return false;
+        }
+        const node = new Node(element);
+        let current = this.head;
+        if (index === 0) {
+            if (this.head == null) { // 没有head
+                this.head = node;
+                node.next = this.head;
+            } else { // 有head
+                node.next = current;
+                current = this.getElementAt(this.size() - 1); 
+                this.head = node;
+                current.next = this.head;
+            }
+        } else {
+            const previous = this.getElementAt(index - 1);
+            node.next = previous.next;
+            previous.next = node;
+        }
+        this.count ++;
+        return true;
+    }
+    removeAt(index){
+        if(index < 0 || index >= this.count) {
+            return false;
+        }
+        let current = this.head;
+        if (index === 0) {
+            if(this.size() === 1) {
+                this.head = undefined;
+            } else {
+                const removed = this.head;
+                current = this.getElementAt(this.size() - 1);
+                this.head = this.head.next;
+                current.next = this.head;
+                current = removed;
+            }
+        } else {
+            let previous = this.getElementAt(index - 1);
+            current = previous.next;
+            previous.next = current.next; 
+        }
+        this.count --;
+        return current.element;
+    }
+}
 
+let circularLinkedList = new CircularLinkedList();
+circularLinkedList.insert(1, 0);
+circularLinkedList.insert(2, 1);
+circularLinkedList.removeAt(1);
+console.log(circularLinkedList);

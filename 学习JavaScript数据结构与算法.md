@@ -405,7 +405,65 @@ class DoublyLinkedList extends LinkedList{
 }
 ```
 
+##### 循环链表
 
+循环链表可以像链表一样只有单向引用，也可以像双向链表一样有双向引用。循环链表和链表之间唯一的区别在于，最后一个元素指向下一个元素的指针（tail.next）不是引用undefined,而是指向第一个元素（head）;
+双向循环链表有指向head元素的tail.next和指向tail元素的head.prev;
+
+```
+class CircularLinkedList extends LinkedList{
+    constructor(equalsFn = defaultEquals) {
+        super(equalsFn);
+    }
+    insert(element, index){
+        if (index < 0 || index > this.count) {
+            return false;
+        }
+        const node = new Node(element);
+        let current = this.head;
+        if (index === 0) {
+            if (this.head == null) { // 没有head
+                this.head = node;
+                node.next = this.head;
+            } else { // 有head
+                node.next = current;
+                current = this.getElementAt(this.size() - 1); 
+                this.head = node;
+                current.next = this.head;
+            }
+        } else {
+            const previous = this.getElementAt(index - 1);
+            node.next = previous.next;
+            previous.next = node;
+        }
+        this.count ++;
+        return true;
+    }
+    removeAt(index){
+        if(index < 0 || index >= this.count) {
+            return false;
+        }
+        let current = this.head;
+        if (index === 0) {
+            if(this.size() === 1) {
+                this.head = undefined;
+            } else {
+                const removed = this.head;
+                current = this.getElementAt(this.size() - 1);
+                this.head = this.head.next;
+                current.next = this.head;
+                current = removed;
+            }
+        } else {
+            let previous = this.getElementAt(index - 1);
+            current = previous.next;
+            previous.next = current.next; 
+        }
+        this.count --;
+        return current.element;
+    }
+}
+```
 
 
 
