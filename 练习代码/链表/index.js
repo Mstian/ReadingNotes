@@ -172,9 +172,11 @@ class DoublyLinkedList extends LinkedList{
     }
 }
 
-let doublyList = new DoublyLinkedList();
-doublyList.insert(1, 0);
-doublyList.insert(2, 1);
-doublyList.insert(3, 2);
-doublyList.removeAt(1);
-console.log(doublyList);
+// let doublyList = new DoublyLinkedList();
+// doublyList.insert(1, 0);
+// doublyList.insert(2, 1);
+// doublyList.insert(3, 2);
+// doublyList.removeAt(1);
+// console.log(doublyList);
+
+
