@@ -465,6 +465,10 @@ class CircularLinkedList extends LinkedList{
 }
 ```
 
+##### 有序链表
+
+有序链表是指保持元素有序的链表结构
+
 
 
 

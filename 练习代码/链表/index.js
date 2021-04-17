@@ -231,8 +231,47 @@ class CircularLinkedList extends LinkedList{
     }
 }
 
-let circularLinkedList = new CircularLinkedList();
-circularLinkedList.insert(1, 0);
-circularLinkedList.insert(2, 1);
-circularLinkedList.removeAt(1);
-console.log(circularLinkedList);
+// let circularLinkedList = new CircularLinkedList();
+// circularLinkedList.insert(1, 0);
+// circularLinkedList.insert(2, 1);
+// circularLinkedList.removeAt(1);
+// console.log(circularLinkedList);
+
+// 有序链表
+const Compare = {
+    LESS_THAN: -1,
+    BIGGER_THAN: 1
+}
+
+function defaultCompare(a, b) {
+    if(a === b) {
+        return 0;
+    }
+    return a < b ? Compare.LESS_THAN : Compare.BIGGER_THAN;
+}
+class SortedLinkedList extends LinkedList {
+    constructor(equalsFn = defaultEquals, compareFn = defaultCompare) {
+        super(equalsFn);
+        this.compareFn = compareFn;
+    }
+    insert(element, index = 0) {
+        if(this.isEmpty()) {
+            return super.insert(element, 0);
+        }
+        const pos = this.getIndexNextSortedElement(element);
+        return super.insertelement, pos);
+    }
+    getIndexNextSortedElement(element) {
+        let current = this.head;
+        for (let i = 0; i < this.size(); i++) {
+            const comp = this.compareFn(element, current.element);
+            if (comp === Compare.LESS_THAN) {
+                return i;
+            }
+            current = current.next;
+        }
+    }
+}
+
+
+
