@@ -469,6 +469,55 @@ class CircularLinkedList extends LinkedList{
 
 有序链表是指保持元素有序的链表结构
 
+```
+const Compare = {
+    LESS_THAN: -1,
+    BIGGER_THAN: 1
+}
+
+function defaultCompare(a, b) {
+    if(a === b) {
+        return 0;
+    }
+    return a < b ? Compare.LESS_THAN : Compare.BIGGER_THAN;
+}
+class SortedLinkedList extends LinkedList {
+    constructor(equalsFn = defaultEquals, compareFn = defaultCompare) {
+        super(equalsFn);
+        this.compareFn = compareFn;
+    }
+    insert(element, index = 0) {
+        if(this.isEmpty()) {
+            return super.insert(element, 0);
+        }
+        const pos = this.getIndexNextSortedElement(element);
+        return super.insertelement, pos);
+    }
+    getIndexNextSortedElement(element) {
+        let current = this.head;
+        for (let i = 0; i < this.size(); i++) {
+            const comp = this.compareFn(element, current.element);
+            if (comp === Compare.LESS_THAN) {
+                return i;
+            }
+            current = current.next;
+        }
+    }
+}
+```
+##### 集合
+集合是由一组无序且唯一（即不能重复）的项组成的。在数学中集合是一组不同对象的集。空集就是不包含任何元素的集合。
+可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。
+
+集合可用方法
+`add(element)`:向集合添加一个新元素。
+`delete(element)`:从集合移除一个元素
+`has(element)`:如果元素在集合中，返回true,否则返回false
+`clear()`:移除集合中的所有元素
+`size()`:返回集合所包含元素的数量，它与数组的length属性类似
+`values()`:返回一个包含集合中所有值（元素）的数组
+
+
 
 
 
