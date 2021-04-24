@@ -517,7 +517,38 @@ class SortedLinkedList extends LinkedList {
 `size()`:返回集合所包含元素的数量，它与数组的length属性类似
 `values()`:返回一个包含集合中所有值（元素）的数组
 
-
+```
+class Set{
+    constructor() {
+        this.items = {}
+    }
+    has(element) {
+       return Object.prototype.hasOwnProperty.call(this.items, element); 
+    }
+    add(element) {
+        if(this.has(element)) {
+            return false;
+        }
+        this.items[element] = element;
+    }
+    delete(element) {
+        if(this.has(element)) {
+            delete this.items[element];
+            return true;
+        }
+        return false;
+    }
+    clear() {
+        this.items = {};
+    }
+    size() {
+        return Object.keys(this.items).length;
+    }
+    values() {
+        return Object.values(this.items);
+    }
+}
+```
 
 
 
