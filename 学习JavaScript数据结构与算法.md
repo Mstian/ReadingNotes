@@ -549,7 +549,63 @@ class Set{
     }
 }
 ```
+集合运算
+并集：对于给定的两个集合，返回一个包含两个集合中所有元素的新集合。
+交集：对于给定的两个集合，返回一个包含两个集合中共有元素的新集合。
+差集：对于给定的两个集合，返回一个包含所有存在于第一个集合且不存在于第二个集合的新集合。
+子集：验证一个给定集合是否是另一集合的子集。
 
+```
+union(otherSet) {
+    const unionSet = new Set();
+    this.values().forEach((val) => {
+        unionSet.add(val);
+    })
+    otherSet.values().forEach((val) => {
+        unionSet.add(val);
+    })
+    return unionSet;
+}
+
+intersection(otherSet) {
+    const intersectionSet = new Set();
+    const values = this.values();
+    for(let i = 0; i < values.length; i++) {
+        if (otherSet.has(values[i])) {
+            intersectionSet.add(values[i]);
+        }
+    }
+    return intersectionSet;
+}
+
+// 优化方法：取length小的放在循环最外层。
+
+difference(otherSet) {
+    const differenceSet = new Set();
+    this.values.forEach((val) => {
+        if(!otherSet.has(val)){
+            differenceSet.add(val);
+        }
+        differenceSet.add(val);
+    });
+    return differenceSet;
+}
+
+isSubsetOf(otherSet) {
+    if (this.sizes() > otherSet.size()) {
+        return false;
+    }
+    let isSubset = true;
+    this.values().every((val) => {
+        if(!otherSet.has(val)) {
+            isSubset = false;
+            return false;
+        }
+        return true;
+    });
+    return isSubset;
+}
+```
 
 
 
