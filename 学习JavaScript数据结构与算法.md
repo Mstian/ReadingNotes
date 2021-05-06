@@ -607,6 +607,86 @@ isSubsetOf(otherSet) {
 }
 ```
 
+##### 字典
+字典和集合很相似，集合以[值，值]的形式存储元素，字典则是以[键，值]的形式存储元素，字典也称作映射，符号表或关联数组。
+
+映射/字典所需要的一些方法：
+`set(key, value)`:添加元素；
+`remove(key)`:删除元素；
+`hasKey(key)`:是否存在，存在返回true否则false
+`get(key)`:查找特定的key值并返回
+`clear()`:删除字典所有值
+`size()`:返回字典所包含值得数量。与数组的length相似
+`keys()`:将字典所有的键名以数组形式返回
+`values()`:将字典所有的数值以数组形式返回
+`keyValues()`:将字典中所有[键，值]对返回
+
+部分实现代码如下：
+```
+
+function defaultToString(item){
+    if (item === null) {
+        return "NULL";
+    } else if (item === undefined) {
+        return "UNDEFINED";
+    }else if (typeof item === 'string' || item instanceof String){
+        return `${item}`;
+    }
+    return item.toString();
+}
+
+class ValuePair {
+    constructor(key, value){
+        this.key = key;
+        this.value = value;
+    }
+    toString() {
+        return `[#${this.key}: ${this.value}]`;
+    }
+}
+
+class Dictionary{
+    constructor(toStrFn = defaultToString) {
+        this.toStrFn = toStrFn;
+        this.table = {};
+    }
+    hasKey(key) {
+        return this.table[this.toStrFn(key)] != null;
+    }
+    set(key, value) {
+        if (key != null && value != null) {
+            const tableKey = this.toStrFn(key);
+            this.table[tableKey] = new ValuePair(key, value);
+            return true;
+        }
+        return false;
+    }
+    remove(key) {
+        if (this.haskey(key)) {
+            delete this.table[this.toStrFn(key)];
+            return true;
+        }
+        return false;
+    }
+    get(key) {
+        const valuePair = this.table[this.toStrFn(key)];
+        return valuePair.value;
+    }
+    keyValues() {
+        return Object.values(this.table);
+    }
+    keys(){
+        return this.keyValues.map((item) => {
+            return item.key;
+        })
+    }
+    values() {
+        return this.keyValues.map((item) => {
+            return item.value;
+        })
+    }
+}
+```
 
 
 
