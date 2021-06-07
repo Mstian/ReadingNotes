@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.uploadIcon{
+				width: 100px;
+				height: 100px;
+				font-size: 30px;
+				font-weight: bold;
+				text-align: center;
+				line-height: 100px;
+				border: 1px solid #ddd;
+			}
+			.hide{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="uploadIcon" onclick="onUpload()"> + </div>
+		<input type="file" name="" id="upload" hidden onchange="upload(event)" />
+		<span> 请上传小于100*100并且大小不超过50k的图片</span>
+		
+	</body>
+	<script type="text/javascript">
+		function onUpload() {
+			document.querySelector('#upload').click();
+		}
+		function upload(e) {
+			if (!e.target.value) {
+				return;
+			}
+			let file = e.target.files[0];
+			let r = new FileReader();
+			r.readAsDataURL(file);
+			r.onload = (res) => {
+				var image = new Image();
+				image.src = res.target.result;
+				image.onload = (imgRes) => {
+					if (imgRes.target.width > 100 || imgRes.target.width > 100) {
+						alert(`图片大小应小于100*100现在为${imgRes.target.width}*${imgRes.target.height}`);
+						return;
+					}
+					if (file.size / 1024 > 50) {
+						alert(`图片大小应小于50k 实际上传大小为${file.size / 1024}`);
+						return;
+					}
+					document.querySelector('.uploadIcon').innerHTML = `<img style="width: 100%; height: 100%" src=${res.target.result}>`;
+					// 使用 formData 进行上传
+					
+				}
+			}
+		}
+	</script>
+</html>
