@@ -37,6 +37,17 @@ class BinarySearchTree{
             }
         }
     }
+    inOrderTraverse(cb) {
+        this.inOrderTraverseNode(this.root, cb);
+    }
+    inOrderTraverseNode(node, callback) {
+        if (node != null) {
+            console.log(node, 'nodes');
+            this.inOrderTraverseNode(node.left, callback);
+            callback(node.key);
+            this.inOrderTraverseNode(node.right, callback);
+        }
+    }
 }
 
 
@@ -60,66 +71,72 @@ binaryTree.insert(25);
 binaryTree.insert(6);
 console.log(JSON.stringify(binaryTree));
 // binaryTree 的树结构
-{
-    "root": {
-        "key": 11,
-        "left": {
-            "key": 7,
-            "left": {
-                "key": 5,
-                "left": {
-                    "key": 3,
-                    "left": null,
-                    "right": null
-                },
-                "right": {
-                    "key": 6,
-                    "left": null,
-                    "right": null
-                }
-            },
-            "right": {
-                "key": 9,
-                "left": {
-                    "key": 8,
-                    "left": null,
-                    "right": null
-                },
-                "right": {
-                    "key": 10,
-                    "left": null,
-                    "right": null
-                }
-            }
-        },
-        "right": {
-            "key": 15,
-            "left": {
-                "key": 13,
-                "left": {
-                    "key": 12,
-                    "left": null,
-                    "right": null
-                },
-                "right": {
-                    "key": 14,
-                    "left": null,
-                    "right": null
-                }
-            },
-            "right": {
-                "key": 20,
-                "left": {
-                    "key": 18,
-                    "left": null,
-                    "right": null
-                },
-                "right": {
-                    "key": 25,
-                    "left": null,
-                    "right": null
-                }
-            }
-        }
-    }
-}
+// {
+//     "root": {
+//         "key": 11,
+//         "left": {
+//             "key": 7,
+//             "left": {
+//                 "key": 5,
+//                 "left": {
+//                     "key": 3,
+//                     "left": null,
+//                     "right": null
+//                 },
+//                 "right": {
+//                     "key": 6,
+//                     "left": null,
+//                     "right": null
+//                 }
+//             },
+//             "right": {
+//                 "key": 9,
+//                 "left": {
+//                     "key": 8,
+//                     "left": null,
+//                     "right": null
+//                 },
+//                 "right": {
+//                     "key": 10,
+//                     "left": null,
+//                     "right": null
+//                 }
+//             }
+//         },
+//         "right": {
+//             "key": 15,
+//             "left": {
+//                 "key": 13,
+//                 "left": {
+//                     "key": 12,
+//                     "left": null,
+//                     "right": null
+//                 },
+//                 "right": {
+//                     "key": 14,
+//                     "left": null,
+//                     "right": null
+//                 }
+//             },
+//             "right": {
+//                 "key": 20,
+//                 "left": {
+//                     "key": 18,
+//                     "left": null,
+//                     "right": null
+//                 },
+//                 "right": {
+//                     "key": 25,
+//                     "left": null,
+//                     "right": null
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+// 中序遍历
+binaryTree.inOrderTraverse((val) => {
+    console.log(val);
+});
