@@ -48,6 +48,16 @@ class BinarySearchTree{
             this.inOrderTraverseNode(node.right, callback);
         }
     }
+    preOrderTraverse(cb) {
+        this.preOrderTraverseNode(this.root, cb);
+    }
+    preOrderTraverseNode(node, callback) {
+        if(node != null) {
+            callback(node.key);
+            this.preOrderTraverseNode(node.left, callback);
+            this.preOrderTraverseNode(node.right, callback);
+        }
+    }
 }
 
 
@@ -137,6 +147,9 @@ console.log(JSON.stringify(binaryTree));
 
 
 // 中序遍历
-binaryTree.inOrderTraverse((val) => {
+// binaryTree.inOrderTraverse((val) => {
+//     console.log(val);
+// });
+binaryTree.preOrderTraverse((val) => {
     console.log(val);
-});
+})
