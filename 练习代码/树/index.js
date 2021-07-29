@@ -58,6 +58,16 @@ class BinarySearchTree{
             this.preOrderTraverseNode(node.right, callback);
         }
     }
+    postOrderTraverse(cb) {
+        this.postOrderTraverseNode(this.root, cb);
+    }
+    postOrderTraverseNode(node, callback) {
+        if (node != null) {
+            this.postOrderTraverseNode(node.left, callback);
+            this.postOrderTraverseNode(node.right, callback);
+            callback(node.key);
+        }
+    }
 }
 
 
@@ -150,6 +160,12 @@ console.log(JSON.stringify(binaryTree));
 // binaryTree.inOrderTraverse((val) => {
 //     console.log(val);
 // });
-binaryTree.preOrderTraverse((val) => {
+// binaryTree.preOrderTraverse((val) => {
+//     console.log(val);
+// });
+
+binaryTree.postOrderTraverse((val) =>{
     console.log(val);
 })
+
+
